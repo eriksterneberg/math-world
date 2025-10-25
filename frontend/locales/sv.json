@@ -43,9 +43,8 @@
     "label": "Språk",
     "english": "English",
     "swedish": "Svenska"
-  }
-    ,
-    "castleExercise": {
+  },
+  "castleExercise": {
       "progress": "Fråga {current} av {total}",
       "congratulations": "Grattis!",
       "completedAll": "Du har slutfört alla {total} frågor!",

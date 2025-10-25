@@ -212,8 +212,7 @@ function showCompletionMessage() {
 
   // Update question display to show completion (i18n)
   if (questionText) {
-    // Get i18n translation for congratulations
-    const congrats = document.querySelector('[data-i18n="castleExercise.congratulations"]')?.textContent || '🎉 Congratulations! 🎉';
+    const congrats = window.i18n?.t('castleExercise.congratulations') || '🎉 Congratulations! 🎉';
     questionText.innerHTML = `<span data-i18n="castleExercise.congratulations">${congrats}</span>`;
     questionText.style.fontSize = '2rem';
   }
@@ -222,23 +221,25 @@ function showCompletionMessage() {
   if (feedbackMessage) {
     const { totalCorrect, totalAttempts } = currentState;
     const percentage = Math.round((totalCorrect / totalAttempts) * 100);
-    // Get i18n translations from DOM or fallback
-    const completedAll = document.querySelector('[data-i18n="castleExercise.completedAll"]')?.textContent || `You completed all ${MAX_QUESTIONS} questions!`;
-    const scoreLabel = document.querySelector('[data-i18n="castleExercise.score"]')?.textContent || 'Score:';
-    const scoreDetailTemplate = document.querySelector('[data-i18n="castleExercise.scoreDetail"]')?.textContent || '{correct} correct out of {attempts} attempts ({percent}%)';
-    const scoreDetail = scoreDetailTemplate
-      .replace('{correct}', totalCorrect)
-      .replace('{attempts}', totalAttempts)
-      .replace('{percent}', percentage);
-    const startOver = document.querySelector('[data-i18n="castleExercise.startOver"]')?.textContent || 'Start Over';
-    const continueLabel = document.querySelector('[data-i18n="castleExercise.continue"]')?.textContent || 'Continue';
+    
+    // Get i18n translations using the API
+    const completedAll = window.i18n?.t('castleExercise.completedAll', { total: MAX_QUESTIONS }) || `You completed all ${MAX_QUESTIONS} questions!`;
+    const scoreLabel = window.i18n?.t('castleExercise.score') || 'Score:';
+    const scoreDetail = window.i18n?.t('castleExercise.scoreDetail', {
+      correct: totalCorrect,
+      attempts: totalAttempts,
+      percent: percentage
+    }) || `${totalCorrect} correct out of ${totalAttempts} attempts (${percentage}%)`;
+    const startOver = window.i18n?.t('castleExercise.startOver') || 'Start Over';
+    const continueLabel = window.i18n?.t('castleExercise.continue') || 'Continue';
+    
     feedbackMessage.innerHTML = `
       <div style="text-align: center;">
-        <p style="font-size: 1.3rem; margin-bottom: 1rem;" data-i18n="castleExercise.completedAll" data-i18n-vars='{"total":${MAX_QUESTIONS}}'>${completedAll}</p>
-        <p style="font-size: 1.1rem; margin-bottom: 1rem;"><strong data-i18n="castleExercise.score">${scoreLabel}</strong> <span data-i18n="castleExercise.scoreDetail" data-i18n-vars='{"correct":${totalCorrect},"attempts":${totalAttempts},"percent":${percentage}}'>${scoreDetail}</span></p>
+        <p style="font-size: 1.3rem; margin-bottom: 1rem;">${completedAll}</p>
+        <p style="font-size: 1.1rem; margin-bottom: 1rem;"><strong>${scoreLabel}</strong> ${scoreDetail}</p>
         <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem;">
-          <button id="continue-btn" style="background: #fff; color: #4CAF50; border: 2px solid #4CAF50; padding: 12px 24px; font-size: 1.1rem; border-radius: 8px; cursor: pointer; min-width: 120px;" data-i18n="castleExercise.continue">${continueLabel}</button>
-          <button id="startover-btn" style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white; border: none; padding: 12px 24px; font-size: 1.1rem; border-radius: 8px; cursor: pointer; min-width: 120px;" data-i18n="castleExercise.startOver">🔄 ${startOver}</button>
+          <button id="continue-btn" style="background: #fff; color: #4CAF50; border: 2px solid #4CAF50; padding: 12px 24px; font-size: 1.1rem; border-radius: 8px; cursor: pointer; min-width: 120px;">${continueLabel}</button>
+          <button id="startover-btn" style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white; border: none; padding: 12px 24px; font-size: 1.1rem; border-radius: 8px; cursor: pointer; min-width: 120px;">🔄 ${startOver}</button>
         </div>
       </div>
     `;
@@ -407,8 +408,14 @@ function setupEventListeners() {
 /**
  * Main initialization - runs when DOM is fully loaded
  */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   console.log('Castle Exercise module loaded');
+  
+  // Wait for i18n translations to be ready
+  if (window.i18n && typeof window.i18n.ready === 'function') {
+    await window.i18n.ready();
+    console.log('Translations loaded, initializing exercise');
+  }
   
   setupEventListeners();
   initializeExercise();

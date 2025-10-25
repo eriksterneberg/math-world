@@ -43,9 +43,8 @@
     "label": "Language",
     "english": "English",
     "swedish": "Svenska"
-  }
-    ,
-    "castleExercise": {
+  },
+  "castleExercise": {
       "progress": "Question {current} of {total}",
       "congratulations": "Congratulations!",
       "completedAll": "You completed all {total} questions!",

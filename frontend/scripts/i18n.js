@@ -14,6 +14,13 @@
 (function() {
   'use strict';
 
+  // Store loaded translations globally within this module
+  let currentTranslations = {};
+  
+  // Promise to track when translations are ready
+  let translationsReady = null;
+  let resolveTranslations = null;
+
   /**
    * Get the language code from URL parameter or browser settings
    * @returns {string} Language code (e.g., 'en', 'sv', 'es')
@@ -83,15 +90,14 @@
   async function loadTranslations(lang) {
     try {
       // Calculate relative path to locales folder
-      // Check if we're in a subfolder (like /worlds/)
+      // Determine if we're in the frontend root or a subfolder
       const currentPath = window.location.pathname;
-      const depth = currentPath.split('/').filter(p => p && p.endsWith('.html')).length > 0 
-        ? currentPath.split('/').length - 2  // In a subfolder
-        : 0;
+      const isInSubfolder = currentPath.includes('/worlds/') || currentPath.includes('/frontend/worlds/');
       
-      // Build relative path based on depth
-      const relativePath = depth > 0 ? '../'.repeat(depth - 1) : '';
-      const localesPath = `${relativePath}locales/${lang}.json`;
+      // Build relative path: if in worlds/, go up one level; otherwise stay in same level
+      const localesPath = isInSubfolder 
+        ? `../locales/${lang}.json`
+        : `locales/${lang}.json`;
       
       const response = await fetch(localesPath);
       
@@ -105,6 +111,7 @@
       }
 
       const translations = await response.json();
+      currentTranslations = translations; // Store for programmatic access
       applyTranslations(translations);
       
       // Store current language for reference
@@ -113,9 +120,18 @@
       // Update language switcher if present
       updateLanguageSwitcher(lang);
       
+      // Resolve the ready promise
+      if (resolveTranslations) {
+        resolveTranslations();
+      }
+      
     } catch (error) {
       console.error('Error loading translations:', error);
       // If even English fails, we'll just show the default HTML content
+      // Still resolve the promise so dependent code doesn't hang
+      if (resolveTranslations) {
+        resolveTranslations();
+      }
     }
   }
 
@@ -167,6 +183,11 @@
    * Initialize i18n when DOM is ready
    */
   function init() {
+    // Create the ready promise
+    translationsReady = new Promise((resolve) => {
+      resolveTranslations = resolve;
+    });
+    
     const lang = getLanguage();
     loadTranslations(lang);
     initLanguageSwitcher();
@@ -211,6 +232,21 @@
     return document.documentElement.lang || getLanguage();
   }
 
+  /**
+   * Get translation for a key with optional variable replacement
+   * @param {string} key - Translation key in dot notation (e.g., 'castleExercise.congratulations')
+   * @param {Object} vars - Optional variables to replace in the translation
+   * @returns {string} Translated string or the key itself if not found
+   */
+  function t(key, vars = {}) {
+    const translation = getNestedProperty(currentTranslations, key);
+    if (translation === undefined) {
+      console.warn(`Translation key not found: ${key}`);
+      return key;
+    }
+    return replacePlaceholders(translation, vars);
+  }
+
   // Initialize when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
@@ -218,11 +254,13 @@
     init();
   }
 
-  // Expose API for language switcher
+  // Expose API for language switcher and programmatic translation
   window.i18n = {
     setLanguage,
     getCurrentLanguage,
-    getLanguage
+    getLanguage,
+    t,  // Translation function
+    ready: () => translationsReady  // Promise that resolves when translations are loaded
   };
 
 })();
