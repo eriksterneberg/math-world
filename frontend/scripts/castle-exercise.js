@@ -343,14 +343,14 @@ function showFeedback(isCorrect, customMessage = null) {
     feedbackMessage.textContent = customMessage;
     feedbackMessage.classList.add('incorrect');
   } else if (isCorrect) {
-    // Get localized correct message
-    const correctMsg = document.querySelector('[data-i18n="additionForest.exercise1.correctFeedback"]')?.textContent 
+    // Get localized correct message using i18n API
+    const correctMsg = window.i18n?.t('additionForest.exercise1.correctFeedback') 
       || 'Correct! Well done! 🎉';
     feedbackMessage.textContent = correctMsg;
     feedbackMessage.classList.add('correct');
   } else {
-    // Get localized incorrect message
-    const incorrectMsg = document.querySelector('[data-i18n="additionForest.exercise1.incorrectFeedback"]')?.textContent 
+    // Get localized incorrect message using i18n API
+    const incorrectMsg = window.i18n?.t('additionForest.exercise1.incorrectFeedback')
       || 'Not quite. Try again! 💪';
     feedbackMessage.textContent = incorrectMsg;
     feedbackMessage.classList.add('incorrect');

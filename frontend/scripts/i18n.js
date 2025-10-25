@@ -177,6 +177,19 @@
         console.warn(`Translation key not found: ${key}`);
       }
     });
+    
+    // Handle elements with data-i18n-placeholder attribute
+    const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
+    placeholderElements.forEach(element => {
+      const key = element.getAttribute('data-i18n-placeholder');
+      const translation = getNestedProperty(translations, key);
+      
+      if (translation) {
+        element.placeholder = translation;
+      } else {
+        console.warn(`Translation key not found for placeholder: ${key}`);
+      }
+    });
   }
 
   /**
