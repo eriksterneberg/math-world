@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="additionForest.pageTitle">Addition Forest Map - Math Planet</title>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/map.css">
+  
+  <!-- Scripts -->
+  <script src="../scripts/i18n.js" defer></script>
+</head>
+<body class="map-page">
+  <div class="container">
+    <!-- Page Header -->
+    <header class="map-header">
+      <h1 data-i18n="additionForest.title">Addition Forest</h1>
+      <p class="map-subtitle" data-i18n="additionForest.subtitle">Choose your path through the forest</p>
+    </header>
+    
+    <!-- Map Container -->
+    <main class="map-container">
+      <div class="treasure-map">
+        <!-- SVG Map with Path and Spots -->
+        <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" class="map-svg">
+          <title>Addition Forest treasure map with five learning spots</title>
+          
+          <!-- Decorative forest background elements -->
+          <g class="map-background">
+            <!-- Trees in background -->
+            <circle cx="100" cy="100" r="40" fill="#81C784" opacity="0.3"/>
+            <circle cx="700" cy="120" r="35" fill="#81C784" opacity="0.3"/>
+            <circle cx="150" cy="500" r="45" fill="#81C784" opacity="0.3"/>
+            <circle cx="680" cy="480" r="38" fill="#81C784" opacity="0.3"/>
+            
+            <!-- Bushes -->
+            <circle cx="50" cy="300" r="25" fill="#66BB6A" opacity="0.4"/>
+            <circle cx="750" cy="350" r="30" fill="#66BB6A" opacity="0.4"/>
+          </g>
+          
+          <!-- Winding path connecting all spots -->
+          <path 
+            class="map-path"
+            d="M 150 450 Q 200 400, 250 380 T 350 330 Q 400 300, 450 280 T 550 230 Q 600 200, 650 180"
+            stroke="#8D6E63"
+            stroke-width="20"
+            stroke-linecap="round"
+            stroke-dasharray="5,5"
+            fill="none"
+            opacity="0.6"
+          />
+          
+          <!-- Spot 1 - Starting Point (HIGHLIGHTED) -->
+          <g class="map-spot spot-1 highlighted" transform="translate(150, 450)">
+            <circle class="spot-glow" r="35" fill="#FFD54F" opacity="0.4"/>
+            <circle class="spot-outer" r="28" fill="#4CAF50" stroke="#2E7D32" stroke-width="3"/>
+            <circle class="spot-inner" r="20" fill="#66BB6A"/>
+            <text class="spot-number" x="0" y="8" text-anchor="middle" font-size="24" font-weight="bold" fill="#FFFFFF">1</text>
+            
+            <!-- Flag marker on spot 1 -->
+            <g transform="translate(25, -35)">
+              <line x1="0" y1="0" x2="0" y2="30" stroke="#8B4513" stroke-width="2"/>
+              <path d="M 0 0 L 15 7 L 0 14 Z" fill="#FFD54F"/>
+            </g>
+          </g>
+          
+          <!-- Spot 2 - Not yet available -->
+          <g class="map-spot spot-2 inactive" transform="translate(300, 360)">
+            <circle class="spot-outer" r="24" fill="#A5D6A7" stroke="#81C784" stroke-width="2" opacity="0.7"/>
+            <circle class="spot-inner" r="16" fill="#C8E6C9" opacity="0.7"/>
+            <text class="spot-number" x="0" y="7" text-anchor="middle" font-size="20" font-weight="bold" fill="#888888">2</text>
+          </g>
+          
+          <!-- Spot 3 - Not yet available -->
+          <g class="map-spot spot-3 inactive" transform="translate(450, 280)">
+            <circle class="spot-outer" r="24" fill="#A5D6A7" stroke="#81C784" stroke-width="2" opacity="0.7"/>
+            <circle class="spot-inner" r="16" fill="#C8E6C9" opacity="0.7"/>
+            <text class="spot-number" x="0" y="7" text-anchor="middle" font-size="20" font-weight="bold" fill="#888888">3</text>
+          </g>
+          
+          <!-- Spot 4 - Not yet available -->
+          <g class="map-spot spot-4 inactive" transform="translate(550, 230)">
+            <circle class="spot-outer" r="24" fill="#A5D6A7" stroke="#81C784" stroke-width="2" opacity="0.7"/>
+            <circle class="spot-inner" r="16" fill="#C8E6C9" opacity="0.7"/>
+            <text class="spot-number" x="0" y="7" text-anchor="middle" font-size="20" font-weight="bold" fill="#888888">4</text>
+          </g>
+          
+          <!-- Spot 5 - Final destination - Not yet available -->
+          <g class="map-spot spot-5 inactive" transform="translate(650, 180)">
+            <circle class="spot-outer" r="24" fill="#A5D6A7" stroke="#81C784" stroke-width="2" opacity="0.7"/>
+            <circle class="spot-inner" r="16" fill="#C8E6C9" opacity="0.7"/>
+            <text class="spot-number" x="0" y="7" text-anchor="middle" font-size="20" font-weight="bold" fill="#888888">5</text>
+            
+            <!-- Star marker on final spot -->
+            <g transform="translate(0, -30)" opacity="0.5">
+              <path d="M 0,-8 L 2,-2 L 8,-2 L 3,2 L 5,8 L 0,4 L -5,8 L -3,2 L -8,-2 L -2,-2 Z" fill="#FFD700"/>
+            </g>
+          </g>
+          
+          <!-- ARIA labels for accessibility -->
+          <text class="sr-only">
+            <tspan data-i18n="additionForest.spot1Label">Spot 1 - Start here</tspan>
+            <tspan data-i18n="additionForest.spot2Label">Spot 2 - Not yet available</tspan>
+            <tspan data-i18n="additionForest.spot3Label">Spot 3 - Not yet available</tspan>
+            <tspan data-i18n="additionForest.spot4Label">Spot 4 - Not yet available</tspan>
+            <tspan data-i18n="additionForest.spot5Label">Spot 5 - Not yet available</tspan>
+          </text>
+        </svg>
+      </div>
+      
+      <!-- Back to Home Navigation -->
+      <nav class="map-navigation">
+        <a href="../index.html" class="back-button" data-i18n="navigation.backToHome">
+          ← Back to Math Planet
+        </a>
+      </nav>
+    </main>
+  </div>
+</body>
+</html>
