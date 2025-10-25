@@ -1,0 +1,19 @@
+{
+  "title": "Math Planet",
+  "worlds": {
+    "additionForest": "Addition Forest",
+    "subtractionMountain": "Subtraction Mountain",
+    "multiplicationDesert": "Multiplication Desert",
+    "divisionOcean": "Division Ocean"
+  },
+  "comingSoon": "Coming soon",
+  "map": {
+    "title": "Addition Forest Map",
+    "spot": "Spot {number}"
+  },
+  "accessibility": {
+    "worldCardLabel": "Enter {world} to start learning",
+    "inactiveWorldLabel": "{world} - Coming soon",
+    "mapSpotLabel": "Learning spot {number} - Not yet available"
+  }
+}

@@ -23,12 +23,12 @@ Using web application structure: `frontend/` directory at repository root contai
 
 **Purpose**: Project initialization and basic frontend structure
 
-- [ ] T001 Create frontend directory structure per plan.md (frontend/, frontend/worlds/, frontend/styles/, frontend/scripts/, frontend/locales/)
-- [ ] T002 [P] Create base CSS reset and global styles in frontend/styles/main.css with CSS custom properties
-- [ ] T003 [P] Configure Google Fonts integration (Fredoka for headings, Nunito for body) in frontend/styles/main.css
-- [ ] T004 [P] Create English locale file frontend/locales/en.json with all string keys per data-model.md
-- [ ] T005 [P] Create localization README in frontend/locales/README.md with instructions for adding new languages
-- [ ] T006 Implement i18n JavaScript loader in frontend/scripts/i18n.js (~50 lines, loads JSON and replaces data-i18n attributes)
+- [x] T001 Create frontend directory structure per plan.md (frontend/, frontend/worlds/, frontend/styles/, frontend/scripts/, frontend/locales/)
+- [x] T002 [P] Create base CSS reset and global styles in frontend/styles/main.css with CSS custom properties
+- [x] T003 [P] Configure Google Fonts integration (Fredoka for headings, Nunito for body) in frontend/styles/main.css
+- [x] T004 [P] Create English locale file frontend/locales/en.json with all string keys per data-model.md
+- [x] T005 [P] Create localization README in frontend/locales/README.md with instructions for adding new languages
+- [x] T006 Implement i18n JavaScript loader in frontend/scripts/i18n.js (~50 lines, loads JSON and replaces data-i18n attributes)
 
 **Checkpoint**: Directory structure ready, base styles configured, localization framework implemented
 
@@ -40,11 +40,11 @@ Using web application structure: `frontend/` directory at repository root contai
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T007 Create CSS Grid layout system for responsive world cards in frontend/styles/cards.css (2x2 grid on desktop, stacked on tablet)
-- [ ] T008 Define CSS custom properties for all four world color schemes in frontend/styles/main.css (green/forest, white/mountain, yellow/desert, blue/ocean)
-- [ ] T009 Implement base world card component styles in frontend/styles/cards.css (structure, sizing, touch targets 44px+, borders, shadows)
-- [ ] T010 Implement keyboard focus styles for accessible navigation in frontend/styles/main.css (:focus-visible with outline)
-- [ ] T011 Create media queries for responsive breakpoints (768px, 1200px) in frontend/styles/main.css
+- [x] T007 Create CSS Grid layout system for responsive world cards in frontend/styles/cards.css (2x2 grid on desktop, stacked on tablet)
+- [x] T008 Define CSS custom properties for all four world color schemes in frontend/styles/main.css (green/forest, white/mountain, yellow/desert, blue/ocean)
+- [x] T009 Implement base world card component styles in frontend/styles/cards.css (structure, sizing, touch targets 44px+, borders, shadows)
+- [x] T010 Implement keyboard focus styles for accessible navigation in frontend/styles/main.css (:focus-visible with outline)
+- [x] T011 Create media queries for responsive breakpoints (768px, 1200px) in frontend/styles/main.css
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -58,21 +58,21 @@ Using web application structure: `frontend/` directory at repository root contai
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create HTML structure for home page in frontend/index.html with semantic header, main, and card container
-- [ ] T013 [P] [US1] Add "Math Planet" title with data-i18n attribute in frontend/index.html
-- [ ] T014 [P] [US1] Create Addition Forest card HTML with semantic <a> element in frontend/index.html
-- [ ] T015 [P] [US1] Create SVG forest scenery inline in Addition Forest card (trees, leaves, grass using simple shapes and green colors)
-- [ ] T016 [P] [US1] Create Subtraction Mountain card HTML with <div> element in frontend/index.html (inactive)
-- [ ] T017 [P] [US1] Create SVG mountain scenery inline in Subtraction Mountain card (peaks, snow, clouds using simple shapes and white/gray colors)
-- [ ] T018 [P] [US1] Create Multiplication Desert card HTML with <div> element in frontend/index.html (inactive)
-- [ ] T019 [P] [US1] Create SVG desert scenery inline in Multiplication Desert card (dunes, cacti, sun using simple shapes and yellow colors)
-- [ ] T020 [P] [US1] Create Division Ocean card HTML with <div> element in frontend/index.html (inactive)
-- [ ] T021 [P] [US1] Create SVG ocean scenery inline in Division Ocean card (waves, fish, bubbles using simple shapes and blue colors)
-- [ ] T022 [US1] Apply world-specific color schemes to each card using CSS classes in frontend/styles/cards.css
-- [ ] T023 [US1] Style inactive cards with grayscale filter and reduced opacity in frontend/styles/cards.css
-- [ ] T024 [US1] Add "Coming soon" text to three inactive cards with styling in frontend/styles/cards.css
-- [ ] T025 [US1] Add ARIA attributes for accessibility (aria-disabled for inactive cards, aria-label for screen readers) in frontend/index.html
-- [ ] T026 [US1] Ensure keyboard navigation works (Tab focuses Addition Forest, skips inactive cards) by testing tabindex and focus styles
+- [x] T012 [P] [US1] Create HTML structure for home page in frontend/index.html with semantic header, main, and card container
+- [x] T013 [P] [US1] Add "Math Planet" title with data-i18n attribute in frontend/index.html
+- [x] T014 [P] [US1] Create Addition Forest card HTML with semantic <a> element in frontend/index.html
+- [x] T015 [P] [US1] Create SVG forest scenery inline in Addition Forest card (trees, leaves, grass using simple shapes and green colors)
+- [x] T016 [P] [US1] Create Subtraction Mountain card HTML with <div> element in frontend/index.html (inactive)
+- [x] T017 [P] [US1] Create SVG mountain scenery inline in Subtraction Mountain card (peaks, snow, clouds using simple shapes and white/gray colors)
+- [x] T018 [P] [US1] Create Multiplication Desert card HTML with <div> element in frontend/index.html (inactive)
+- [x] T019 [P] [US1] Create SVG desert scenery inline in Multiplication Desert card (dunes, cacti, sun using simple shapes and yellow colors)
+- [x] T020 [P] [US1] Create Division Ocean card HTML with <div> element in frontend/index.html (inactive)
+- [x] T021 [P] [US1] Create SVG ocean scenery inline in Division Ocean card (waves, fish, bubbles using simple shapes and blue colors)
+- [x] T022 [US1] Apply world-specific color schemes to each card using CSS classes in frontend/styles/cards.css
+- [x] T023 [US1] Style inactive cards with grayscale filter and reduced opacity in frontend/styles/cards.css
+- [x] T024 [US1] Add "Coming soon" text to three inactive cards with styling in frontend/styles/cards.css
+- [x] T025 [US1] Add ARIA attributes for accessibility (aria-disabled for inactive cards, aria-label for screen readers) in frontend/index.html
+- [x] T026 [US1] Ensure keyboard navigation works (Tab focuses Addition Forest, skips inactive cards) by testing tabindex and focus styles
 
 **Checkpoint**: At this point, User Story 1 should be fully functional. Home page displays with all four cards, correct theming, and only Addition Forest is interactive.
 
