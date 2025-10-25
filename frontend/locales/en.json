@@ -1,3 +1,4 @@
+
 {
   "title": "Math Planet",
   "worlds": {
@@ -37,5 +38,20 @@
     "worldCardLabel": "Enter {world} to start learning",
     "inactiveWorldLabel": "{world} - Coming soon",
     "mapSpotLabel": "Learning spot {number} - Not yet available"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "english": "English",
+    "swedish": "Svenska"
   }
+    ,
+    "castleExercise": {
+      "progress": "Question {current} of {total}",
+      "congratulations": "Congratulations!",
+      "completedAll": "You completed all {total} questions!",
+      "score": "Score:",
+      "scoreDetail": "{correct} correct out of {attempts} attempts ({percent}%)",
+      "startOver": "Start Over",
+      "continue": "Continue"
+    }
 }

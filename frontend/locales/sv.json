@@ -1,3 +1,4 @@
+
 {
   "title": "Matematikplaneten",
   "worlds": {
@@ -37,5 +38,20 @@
     "worldCardLabel": "Gå in i {world} för att börja lära",
     "inactiveWorldLabel": "{world} - Kommer snart",
     "mapSpotLabel": "Inlärningsplats {number} - Inte tillgänglig än"
+  },
+  "languageSwitcher": {
+    "label": "Språk",
+    "english": "English",
+    "swedish": "Svenska"
   }
+    ,
+    "castleExercise": {
+      "progress": "Fråga {current} av {total}",
+      "congratulations": "Grattis!",
+      "completedAll": "Du har slutfört alla {total} frågor!",
+      "score": "Resultat:",
+      "scoreDetail": "{correct} rätt av {attempts} försök ({percent}%)",
+      "startOver": "Börja om",
+      "continue": "Fortsätt"
+    }
 }

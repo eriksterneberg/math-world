@@ -114,11 +114,24 @@ function displayQuestion(question) {
     const parsed = ExerciseState.parseStateCode(currentState.currentState);
     const questionNumber = parsed ? parsed.question : 1;
     
-    // Format question with progress indicator
+    // Format question with progress indicator (i18n)
     const formattedQuestion = QuestionGenerator.formatQuestion(question);
+    // Get i18n translation for progress
+    const lang = window.i18n?.getCurrentLanguage?.() || 'en';
+    const translations = window.i18nTranslations || {};
+    let progressText = '';
+    if (window.i18n && window.i18n.getCurrentLanguage) {
+      // Try to get translation from DOM (already loaded by i18n.js)
+      const progressKey = 'castleExercise.progress';
+      // Fallback to English if not found
+      let progressTemplate = translations[progressKey] || document.querySelector('[data-i18n="castleExercise.progress"]')?.textContent || 'Question {current} of {total}';
+      progressText = progressTemplate.replace('{current}', questionNumber).replace('{total}', MAX_QUESTIONS);
+    } else {
+      progressText = `Question ${questionNumber} of ${MAX_QUESTIONS}`;
+    }
     questionText.innerHTML = `
-      <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">
-        Question ${questionNumber} of ${MAX_QUESTIONS}
+      <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;" data-i18n="castleExercise.progress" data-i18n-vars='{"current":${questionNumber},"total":${MAX_QUESTIONS}}'>
+        ${progressText}
       </div>
       <div style="font-size: 2.5rem;">
         ${formattedQuestion}
@@ -196,42 +209,62 @@ function showCompletionMessage() {
   // Hide input and button
   if (answerInput) answerInput.style.display = 'none';
   if (submitButton) submitButton.style.display = 'none';
-  
-  // Update question display to show completion
+
+  // Update question display to show completion (i18n)
   if (questionText) {
-    questionText.innerHTML = '🎉 Congratulations! 🎉';
+    // Get i18n translation for congratulations
+    const congrats = document.querySelector('[data-i18n="castleExercise.congratulations"]')?.textContent || '🎉 Congratulations! 🎉';
+    questionText.innerHTML = `<span data-i18n="castleExercise.congratulations">${congrats}</span>`;
     questionText.style.fontSize = '2rem';
   }
-  
-  // Show completion message
+
+  // Show completion message with Continue and Start Over buttons
   if (feedbackMessage) {
     const { totalCorrect, totalAttempts } = currentState;
     const percentage = Math.round((totalCorrect / totalAttempts) * 100);
-    
+    // Get i18n translations from DOM or fallback
+    const completedAll = document.querySelector('[data-i18n="castleExercise.completedAll"]')?.textContent || `You completed all ${MAX_QUESTIONS} questions!`;
+    const scoreLabel = document.querySelector('[data-i18n="castleExercise.score"]')?.textContent || 'Score:';
+    const scoreDetailTemplate = document.querySelector('[data-i18n="castleExercise.scoreDetail"]')?.textContent || '{correct} correct out of {attempts} attempts ({percent}%)';
+    const scoreDetail = scoreDetailTemplate
+      .replace('{correct}', totalCorrect)
+      .replace('{attempts}', totalAttempts)
+      .replace('{percent}', percentage);
+    const startOver = document.querySelector('[data-i18n="castleExercise.startOver"]')?.textContent || 'Start Over';
+    const continueLabel = document.querySelector('[data-i18n="castleExercise.continue"]')?.textContent || 'Continue';
     feedbackMessage.innerHTML = `
       <div style="text-align: center;">
-        <p style="font-size: 1.3rem; margin-bottom: 1rem;">
-          You completed all ${MAX_QUESTIONS} questions!
-        </p>
-        <p style="font-size: 1.1rem; margin-bottom: 1rem;">
-          <strong>Score:</strong> ${totalCorrect} correct out of ${totalAttempts} attempts (${percentage}%)
-        </p>
-        <button onclick="location.reload()" style="
-          background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
-          color: white;
-          border: none;
-          padding: 12px 24px;
-          font-size: 1.1rem;
-          border-radius: 8px;
-          cursor: pointer;
-          margin-top: 1rem;
-        ">
-          🔄 Start Over
-        </button>
+        <p style="font-size: 1.3rem; margin-bottom: 1rem;" data-i18n="castleExercise.completedAll" data-i18n-vars='{"total":${MAX_QUESTIONS}}'>${completedAll}</p>
+        <p style="font-size: 1.1rem; margin-bottom: 1rem;"><strong data-i18n="castleExercise.score">${scoreLabel}</strong> <span data-i18n="castleExercise.scoreDetail" data-i18n-vars='{"correct":${totalCorrect},"attempts":${totalAttempts},"percent":${percentage}}'>${scoreDetail}</span></p>
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem;">
+          <button id="continue-btn" style="background: #fff; color: #4CAF50; border: 2px solid #4CAF50; padding: 12px 24px; font-size: 1.1rem; border-radius: 8px; cursor: pointer; min-width: 120px;" data-i18n="castleExercise.continue">${continueLabel}</button>
+          <button id="startover-btn" style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white; border: none; padding: 12px 24px; font-size: 1.1rem; border-radius: 8px; cursor: pointer; min-width: 120px;" data-i18n="castleExercise.startOver">🔄 ${startOver}</button>
+        </div>
       </div>
     `;
     feedbackMessage.className = 'feedback-message correct';
     feedbackMessage.style.display = 'flex';
+
+    // Add event listeners for the buttons
+    const continueBtn = document.getElementById('continue-btn');
+    const startOverBtn = document.getElementById('startover-btn');
+    if (continueBtn) {
+      continueBtn.addEventListener('click', () => {
+        // Hide the modal/feedback and show the interaction area again
+        if (feedbackMessage) feedbackMessage.innerHTML = '';
+        if (interactionArea) interactionArea.classList.add('hidden');
+      });
+    }
+    if (startOverBtn) {
+      startOverBtn.addEventListener('click', () => {
+        // Reset state and restart exercise
+        currentState = ExerciseState.initializeState('1.1.1');
+        ExerciseState.saveState(currentState);
+        if (feedbackMessage) feedbackMessage.innerHTML = '';
+        if (interactionArea) interactionArea.classList.add('hidden');
+        loadNextQuestion();
+      });
+    }
   }
 }
 
