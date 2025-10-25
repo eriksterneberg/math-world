@@ -19,16 +19,39 @@
    * @returns {string} Language code (e.g., 'en', 'sv', 'es')
    */
   function getLanguage() {
-    // Check URL parameter first: ?lang=sv
+    // Check localStorage first for user preference
+    try {
+      const savedLang = localStorage.getItem('mathworld.language');
+      if (savedLang && isValidLanguage(savedLang)) {
+        return savedLang.toLowerCase();
+      }
+    } catch (e) {
+      console.warn('localStorage not available:', e);
+    }
+
+    // Check URL parameter second: ?lang=sv
     const urlParams = new URLSearchParams(window.location.search);
     const langParam = urlParams.get('lang');
-    if (langParam) {
+    if (langParam && isValidLanguage(langParam)) {
       return langParam.toLowerCase();
     }
 
     // Fall back to browser language (e.g., 'en-US' -> 'en')
     const browserLang = navigator.language || navigator.userLanguage;
-    return browserLang.split('-')[0].toLowerCase();
+    const lang = browserLang.split('-')[0].toLowerCase();
+    
+    // If browser language is valid, use it; otherwise default to English
+    return isValidLanguage(lang) ? lang : 'en';
+  }
+
+  /**
+   * Check if language code is supported
+   * @param {string} lang - Language code to validate
+   * @returns {boolean} True if language is supported
+   */
+  function isValidLanguage(lang) {
+    const supportedLanguages = ['en', 'sv'];
+    return supportedLanguages.includes(lang.toLowerCase());
   }
 
   /**
@@ -59,8 +82,18 @@
    */
   async function loadTranslations(lang) {
     try {
-      // Try to load the requested language
-      const response = await fetch(`locales/${lang}.json`);
+      // Calculate relative path to locales folder
+      // Check if we're in a subfolder (like /worlds/)
+      const currentPath = window.location.pathname;
+      const depth = currentPath.split('/').filter(p => p && p.endsWith('.html')).length > 0 
+        ? currentPath.split('/').length - 2  // In a subfolder
+        : 0;
+      
+      // Build relative path based on depth
+      const relativePath = depth > 0 ? '../'.repeat(depth - 1) : '';
+      const localesPath = `${relativePath}locales/${lang}.json`;
+      
+      const response = await fetch(localesPath);
       
       if (!response.ok) {
         // If language not found, fall back to English
@@ -77,9 +110,23 @@
       // Store current language for reference
       document.documentElement.lang = lang;
       
+      // Update language switcher if present
+      updateLanguageSwitcher(lang);
+      
     } catch (error) {
       console.error('Error loading translations:', error);
       // If even English fails, we'll just show the default HTML content
+    }
+  }
+
+  /**
+   * Update language switcher dropdown to reflect current language
+   * @param {string} lang - Current language code
+   */
+  function updateLanguageSwitcher(lang) {
+    const switcher = document.getElementById('language-switcher');
+    if (switcher && switcher.value !== lang) {
+      switcher.value = lang;
     }
   }
 
@@ -122,6 +169,46 @@
   function init() {
     const lang = getLanguage();
     loadTranslations(lang);
+    initLanguageSwitcher();
+  }
+
+  /**
+   * Initialize language switcher UI
+   */
+  function initLanguageSwitcher() {
+    const switcher = document.getElementById('language-switcher');
+    if (!switcher) return;
+
+    // Set current language in switcher
+    const currentLang = getCurrentLanguage();
+    switcher.value = currentLang;
+
+    // Add change event listener
+    switcher.addEventListener('change', (event) => {
+      const newLang = event.target.value;
+      setLanguage(newLang);
+    });
+  }
+
+  /**
+   * Set language and reload translations
+   * @param {string} lang - Language code to switch to
+   */
+  function setLanguage(lang) {
+    try {
+      localStorage.setItem('mathworld.language', lang);
+    } catch (e) {
+      console.warn('Could not save language to localStorage:', e);
+    }
+    loadTranslations(lang);
+  }
+
+  /**
+   * Get current language
+   * @returns {string} Current language code
+   */
+  function getCurrentLanguage() {
+    return document.documentElement.lang || getLanguage();
   }
 
   // Initialize when DOM is ready
@@ -130,5 +217,12 @@
   } else {
     init();
   }
+
+  // Expose API for language switcher
+  window.i18n = {
+    setLanguage,
+    getCurrentLanguage,
+    getLanguage
+  };
 
 })();

@@ -193,6 +193,58 @@ p {
    ACCESSIBILITY
    ======================================== */
 
+/* Language Switcher */
+.language-switcher-container {
+  position: fixed;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  z-index: 1000;
+}
+
+.language-switcher {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  border: 2px solid #4A90E2;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-white);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 120px;
+  box-shadow: var(--shadow-sm);
+}
+
+.language-switcher:hover {
+  border-color: #357ABD;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.language-switcher:focus {
+  outline: 3px solid #4A90E2;
+  outline-offset: 2px;
+}
+
+.language-switcher:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .language-switcher-container {
+    top: var(--spacing-xs);
+    right: var(--spacing-xs);
+  }
+  
+  .language-switcher {
+    min-width: 100px;
+    font-size: 0.9rem;
+  }
+}
+
 /* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
