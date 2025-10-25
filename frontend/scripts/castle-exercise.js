@@ -116,21 +116,15 @@ function displayQuestion(question) {
     
     // Format question with progress indicator (i18n)
     const formattedQuestion = QuestionGenerator.formatQuestion(question);
-    // Get i18n translation for progress
-    const lang = window.i18n?.getCurrentLanguage?.() || 'en';
-    const translations = window.i18nTranslations || {};
-    let progressText = '';
-    if (window.i18n && window.i18n.getCurrentLanguage) {
-      // Try to get translation from DOM (already loaded by i18n.js)
-      const progressKey = 'castleExercise.progress';
-      // Fallback to English if not found
-      let progressTemplate = translations[progressKey] || document.querySelector('[data-i18n="castleExercise.progress"]')?.textContent || 'Question {current} of {total}';
-      progressText = progressTemplate.replace('{current}', questionNumber).replace('{total}', MAX_QUESTIONS);
-    } else {
-      progressText = `Question ${questionNumber} of ${MAX_QUESTIONS}`;
-    }
+    
+    // Get i18n translation for progress using the API
+    const progressText = window.i18n?.t('castleExercise.progress', {
+      current: questionNumber,
+      total: MAX_QUESTIONS
+    }) || `Question ${questionNumber} of ${MAX_QUESTIONS}`;
+    
     questionText.innerHTML = `
-      <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;" data-i18n="castleExercise.progress" data-i18n-vars='{"current":${questionNumber},"total":${MAX_QUESTIONS}}'>
+      <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">
         ${progressText}
       </div>
       <div style="font-size: 2.5rem;">
