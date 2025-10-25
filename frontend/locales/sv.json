@@ -15,7 +15,16 @@
     "spot2Label": "Plats 2 - Inte tillgänglig än",
     "spot3Label": "Plats 3 - Inte tillgänglig än",
     "spot4Label": "Plats 4 - Inte tillgänglig än",
-    "spot5Label": "Plats 5 - Inte tillgänglig än"
+    "spot5Label": "Plats 5 - Inte tillgänglig än",
+    "exercise1": {
+      "princessGreeting": "Snälla hjälp mig, jag ville smyga ut från mitt torn och utforska skogen, men min magiska dörr vill att jag svarar på några gåtor först.",
+      "questionPrompt": "Vad är {addend1} + {addend2}?",
+      "answerPlaceholder": "Skriv ditt svar",
+      "submitButton": "Skicka",
+      "correctFeedback": "Utmärkt jobbat! Låt oss prova en till.",
+      "incorrectFeedback": "Inte riktigt. Det rätta svaret är {correctAnswer}. Låt oss fortsätta försöka!",
+      "inputLabel": "Ditt svar"
+    }
   },
   "navigation": {
     "backToHome": "← Tillbaka till Matematikplaneten"

@@ -59,8 +59,18 @@
    */
   async function loadTranslations(lang) {
     try {
-      // Try to load the requested language
-      const response = await fetch(`locales/${lang}.json`);
+      // Calculate relative path to locales folder
+      // Check if we're in a subfolder (like /worlds/)
+      const currentPath = window.location.pathname;
+      const depth = currentPath.split('/').filter(p => p && p.endsWith('.html')).length > 0 
+        ? currentPath.split('/').length - 2  // In a subfolder
+        : 0;
+      
+      // Build relative path based on depth
+      const relativePath = depth > 0 ? '../'.repeat(depth - 1) : '';
+      const localesPath = `${relativePath}locales/${lang}.json`;
+      
+      const response = await fetch(localesPath);
       
       if (!response.ok) {
         // If language not found, fall back to English

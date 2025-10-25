@@ -8,18 +8,16 @@
   <!-- Styles -->
   <link rel="stylesheet" href="../styles/main.css">
   <link rel="stylesheet" href="../styles/map.css">
+  <link rel="stylesheet" href="../styles/exercise.css">
   
   <!-- Scripts -->
   <script src="../scripts/i18n.js" defer></script>
+  <script type="module" src="../scripts/exercise-state.js"></script>
+  <script type="module" src="../scripts/question-generator.js"></script>
+  <script type="module" src="../scripts/castle-exercise.js"></script>
 </head>
 <body class="map-page">
   <div class="container">
-    <!-- Page Header -->
-    <header class="map-header">
-      <h1 data-i18n="additionForest.title">Addition Forest</h1>
-      <p class="map-subtitle" data-i18n="additionForest.subtitle">Choose your path through the forest</p>
-    </header>
-    
     <!-- Map Container -->
     <main class="map-container">
       <div class="treasure-map">
@@ -54,6 +52,29 @@
             fill="none"
             opacity="0.6"
           />
+          
+          <!-- Castle (Starting Point) - Interactive Element -->
+          <g id="castle-spot" class="map-spot castle-spot" data-spot="castle" role="button" tabindex="0" aria-label="Castle - Starting Point">
+            <!-- Castle Structure -->
+            <rect x="125" y="420" width="50" height="60" fill="#B0B0B0" stroke="#808080" stroke-width="2"/>
+            <polygon points="120,420 180,420 175,400 125,400" fill="#909090" stroke="#707070" stroke-width="2"/>
+            
+            <!-- Castle Towers -->
+            <rect x="120" y="405" width="15" height="25" fill="#B0B0B0" stroke="#808080" stroke-width="1"/>
+            <rect x="165" y="405" width="15" height="25" fill="#B0B0B0" stroke="#808080" stroke-width="1"/>
+            <polygon points="120,405 127.5,390 135,405" fill="#909090"/>
+            <polygon points="165,405 172.5,390 180,405" fill="#909090"/>
+            
+            <!-- Castle Door -->
+            <rect x="140" y="455" width="20" height="25" fill="#654321" stroke="#4A3219" stroke-width="1"/>
+            
+            <!-- Castle Windows -->
+            <rect x="132" y="435" width="10" height="10" fill="#FFE87C" stroke="#D4AF37" stroke-width="1"/>
+            <rect x="158" y="435" width="10" height="10" fill="#FFE87C" stroke="#D4AF37" stroke-width="1"/>
+            
+            <!-- Hover indicator (visible on hover) -->
+            <circle cx="150" cy="450" r="40" fill="rgba(255, 215, 0, 0.2)" class="castle-hover-indicator" opacity="0"/>
+          </g>
           
           <!-- Spot 1 - Starting Point (HIGHLIGHTED) -->
           <g class="map-spot spot-1 highlighted" transform="translate(150, 450)">
@@ -113,12 +134,70 @@
         </svg>
       </div>
       
-      <!-- Back to Home Navigation -->
-      <nav class="map-navigation">
-        <a href="../index.html" class="back-button" data-i18n="navigation.backToHome">
-          ← Back to Math Planet
-        </a>
-      </nav>
+      <!-- Exercise Interaction Area (Initially hidden) -->
+      <div id="interaction-area" class="interaction-area hidden" role="region" aria-labelledby="exercise-title">
+        <!-- Princess Character -->
+        <div class="princess-container">
+          <svg class="princess-svg" width="100" height="120" viewBox="0 0 100 120" aria-hidden="true">
+            <!-- Princess Crown -->
+            <polygon points="40,20 50,10 60,20 55,25 45,25" fill="#FFD700" stroke="#FFA000" stroke-width="1"/>
+            <circle cx="50" cy="25" r="3" fill="#FF1744"/>
+            
+            <!-- Princess Head -->
+            <circle cx="50" cy="40" r="15" fill="#FFE0BD" stroke="#D4A574" stroke-width="1"/>
+            
+            <!-- Princess Hair -->
+            <path d="M 35 35 Q 35 25, 50 25 Q 65 25, 65 35 Q 65 45, 60 50 L 40 50 Q 35 45, 35 35" fill="#8B4513" stroke="#654321" stroke-width="1"/>
+            
+            <!-- Princess Eyes -->
+            <circle cx="45" cy="40" r="2" fill="#333"/>
+            <circle cx="55" cy="40" r="2" fill="#333"/>
+            
+            <!-- Princess Smile -->
+            <path d="M 45 45 Q 50 48, 55 45" stroke="#333" stroke-width="1" fill="none"/>
+            
+            <!-- Princess Dress -->
+            <path d="M 50 55 L 35 100 L 40 100 L 50 75 L 60 100 L 65 100 Z" fill="#FF69B4" stroke="#C2185B" stroke-width="1"/>
+            
+            <!-- Princess Arms -->
+            <line x1="40" y1="60" x2="30" y2="75" stroke="#FFE0BD" stroke-width="4" stroke-linecap="round"/>
+            <line x1="60" y1="60" x2="70" y2="75" stroke="#FFE0BD" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        
+        <!-- Princess Message -->
+        <div class="princess-message">
+          <p id="princess-greeting" data-i18n="additionForest.exercise1.princessGreeting">Welcome to my castle! Let's practice addition together.</p>
+        </div>
+        
+        <!-- Question Display -->
+        <div class="question-display">
+          <h2 id="exercise-title" class="sr-only" data-i18n="additionForest.exercise1.questionPrompt">Solve this addition problem</h2>
+          <div id="question-text" class="question-text" role="text" aria-live="polite"></div>
+        </div>
+        
+        <!-- Answer Input -->
+        <div class="answer-input-container">
+          <label for="answer-input" class="answer-label" data-i18n="additionForest.exercise1.inputLabel">Your answer:</label>
+          <input 
+            type="number" 
+            id="answer-input" 
+            class="answer-input" 
+            data-i18n-placeholder="additionForest.exercise1.answerPlaceholder"
+            placeholder="Enter your answer"
+            aria-describedby="feedback-message"
+            min="0"
+            max="200"
+          />
+        </div>
+        
+        <!-- Submit Button -->
+        <button id="submit-button" class="submit-button" data-i18n="additionForest.exercise1.submitButton">Check Answer</button>
+        
+        <!-- Feedback Message -->
+        <div id="feedback-message" class="feedback-message" role="alert" aria-live="assertive"></div>
+      </div>
+      
     </main>
   </div>
 </body>

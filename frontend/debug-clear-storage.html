@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clear Storage - Math World Debug</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      background: #f44336;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 10px 5px;
+    }
+    button:hover {
+      background: #d32f2f;
+    }
+    .success {
+      background: #4CAF50;
+    }
+    .success:hover {
+      background: #45a049;
+    }
+    #status {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 4px;
+      display: none;
+    }
+    #status.show {
+      display: block;
+    }
+    #status.error {
+      background: #ffebee;
+      color: #c62828;
+    }
+    #status.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+      max-height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔧 Debug: Clear Storage</h1>
+    <p>Use this page to debug localStorage issues with the Math World exercise.</p>
+    
+    <h2>Current Storage:</h2>
+    <pre id="storage-content">Loading...</pre>
+    
+    <div>
+      <button onclick="viewStorage()">🔍 View Storage</button>
+      <button onclick="clearStorage()">🗑️ Clear Storage</button>
+      <button class="success" onclick="goToExercise()">➡️ Go to Exercise</button>
+    </div>
+    
+    <div id="status"></div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'mathworld.additionForest.exercise1';
+
+    function showStatus(message, type) {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = `show ${type}`;
+      setTimeout(() => {
+        status.className = '';
+      }, 3000);
+    }
+
+    function viewStorage() {
+      const content = document.getElementById('storage-content');
+      const data = localStorage.getItem(STORAGE_KEY);
+      
+      if (data) {
+        try {
+          const parsed = JSON.parse(data);
+          content.textContent = JSON.stringify(parsed, null, 2);
+          showStatus('Storage loaded successfully', 'success');
+        } catch (e) {
+          content.textContent = `ERROR parsing: ${e.message}\n\nRaw data:\n${data}`;
+          showStatus('Storage data is corrupted', 'error');
+        }
+      } else {
+        content.textContent = 'No saved data found.';
+        showStatus('No data in localStorage', 'success');
+      }
+    }
+
+    function clearStorage() {
+      if (confirm('Are you sure you want to clear all saved progress?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        viewStorage();
+        showStatus('Storage cleared successfully!', 'success');
+      }
+    }
+
+    function goToExercise() {
+      window.location.href = '/frontend/worlds/addition-forest-map.html';
+    }
+
+    // Auto-load on page load
+    window.addEventListener('DOMContentLoaded', viewStorage);
+  </script>
+</body>
+</html>
