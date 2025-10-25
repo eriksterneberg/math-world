@@ -86,15 +86,15 @@ Using web application structure: `frontend/` directory at repository root contai
 
 ### Implementation for User Story 2
 
-- [ ] T027 [P] [US2] Create CSS keyframe animation for falling leaves in frontend/styles/animations.css (translateY, rotate, opacity fade, 3s duration)
-- [ ] T028 [P] [US2] Add multiple leaf SVG elements to Addition Forest card HTML in frontend/index.html (5-8 leaves with different starting positions)
-- [ ] T029 [US2] Apply CSS animation to leaves with animation-play-state: paused by default in frontend/styles/animations.css
-- [ ] T030 [US2] Create :hover selector for Addition Forest card that sets animation-play-state: running in frontend/styles/animations.css
-- [ ] T031 [US2] Add staggered animation-delay to each leaf (0s, 0.5s, 1s, 1.5s, etc.) in frontend/styles/animations.css
-- [ ] T032 [US2] Add will-change: transform to leaves for performance optimization in frontend/styles/animations.css
-- [ ] T033 [US2] Set href attribute on Addition Forest <a> element to "worlds/addition-forest-map.html" in frontend/index.html
-- [ ] T034 [US2] Verify animation performance (60fps target) and adjust if needed
-- [ ] T035 [US2] Test keyboard navigation: Enter/Space on focused card should navigate to map
+- [x] T027 [P] [US2] Create CSS keyframe animation for falling leaves in frontend/styles/animations.css (translateY, rotate, opacity fade, 3s duration)
+- [x] T028 [P] [US2] Add multiple leaf SVG elements to Addition Forest card HTML in frontend/index.html (5-8 leaves with different starting positions)
+- [x] T029 [US2] Apply CSS animation to leaves with animation-play-state: paused by default in frontend/styles/animations.css
+- [x] T030 [US2] Create :hover selector for Addition Forest card that sets animation-play-state: running in frontend/styles/animations.css
+- [x] T031 [US2] Add staggered animation-delay to each leaf (0s, 0.5s, 1s, 1.5s, etc.) in frontend/styles/animations.css
+- [x] T032 [US2] Add will-change: transform to leaves for performance optimization in frontend/styles/animations.css
+- [x] T033 [US2] Set href attribute on Addition Forest <a> element to "worlds/addition-forest-map.html" in frontend/index.html
+- [x] T034 [US2] Verify animation performance (60fps target) and adjust if needed
+- [x] T035 [US2] Test keyboard navigation: Enter/Space on focused card should navigate to map
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work. Card has smooth falling leaves animation on hover and navigates to map page on click.
 
@@ -108,19 +108,19 @@ Using web application structure: `frontend/` directory at repository root contai
 
 ### Implementation for User Story 3
 
-- [ ] T036 [P] [US3] Create HTML structure for map page in frontend/worlds/addition-forest-map.html with header and map container
-- [ ] T037 [P] [US3] Add page title with data-i18n attribute in frontend/worlds/addition-forest-map.html
-- [ ] T038 [P] [US3] Create map styles in frontend/styles/map.css (treasure map background, parchment texture, forest theme colors)
-- [ ] T039 [P] [US3] Create SVG map illustration with path connecting five spots in frontend/worlds/addition-forest-map.html
-- [ ] T040 [P] [US3] Add five map spot SVG elements (circles or markers) positioned along the path in frontend/worlds/addition-forest-map.html
-- [ ] T041 [US3] Style first spot with highlighted appearance (larger, brighter, outlined, or animated) in frontend/styles/map.css
-- [ ] T042 [US3] Style spots 2-5 with non-highlighted appearance (smaller, muted colors) in frontend/styles/map.css
-- [ ] T043 [US3] Add spot numbers (1-5) inside or near each spot SVG in frontend/worlds/addition-forest-map.html
-- [ ] T044 [US3] Apply pointer-events: none to all spots to prevent interaction in frontend/styles/map.css
-- [ ] T045 [US3] Add ARIA labels to spots for accessibility (e.g., "Spot 1 - Not yet available") in frontend/worlds/addition-forest-map.html
-- [ ] T046 [US3] Link localization strings for map page title and spot labels in frontend/locales/en.json
-- [ ] T047 [US3] Add navigation back to home page (browser back button should work naturally)
-- [ ] T048 [US3] Test responsive layout on 768px+ screen sizes
+- [x] T036 [P] [US3] Create HTML structure for map page in frontend/worlds/addition-forest-map.html with header and map container
+- [x] T037 [P] [US3] Add page title with data-i18n attribute in frontend/worlds/addition-forest-map.html
+- [x] T038 [P] [US3] Create map styles in frontend/styles/map.css (treasure map background, parchment texture, forest theme colors)
+- [x] T039 [P] [US3] Create SVG map illustration with path connecting five spots in frontend/worlds/addition-forest-map.html
+- [x] T040 [P] [US3] Add five map spot SVG elements (circles or markers) positioned along the path in frontend/worlds/addition-forest-map.html
+- [x] T041 [US3] Style first spot with highlighted appearance (larger, brighter, outlined, or animated) in frontend/styles/map.css
+- [x] T042 [US3] Style spots 2-5 with non-highlighted appearance (smaller, muted colors) in frontend/styles/map.css
+- [x] T043 [US3] Add spot numbers (1-5) inside or near each spot SVG in frontend/worlds/addition-forest-map.html
+- [x] T044 [US3] Apply pointer-events: none to all spots to prevent interaction in frontend/styles/map.css
+- [x] T045 [US3] Add ARIA labels to spots for accessibility (e.g., "Spot 1 - Not yet available") in frontend/worlds/addition-forest-map.html
+- [x] T046 [US3] Link localization strings for map page title and spot labels in frontend/locales/en.json
+- [x] T047 [US3] Add navigation back to home page (browser back button should work naturally)
+- [x] T048 [US3] Test responsive layout on 768px+ screen sizes
 
 **Checkpoint**: All three user stories should now be independently functional. Complete site flow: home page → hover animation → click → map page.
 
@@ -133,14 +133,14 @@ Using web application structure: `frontend/` directory at repository root contai
 - [ ] T049 [P] Optimize SVG code for performance (remove unnecessary attributes, minimize paths)
 - [ ] T050 [P] Verify all localization strings are properly referenced with data-i18n attributes across both pages
 - [ ] T051 [P] Test color contrast ratios meet WCAG AA standards for child readability
-- [ ] T052 [P] Add meta tags for viewport and character encoding in both HTML files
+- [x] T052 [P] Add meta tags for viewport and character encoding in both HTML files
 - [ ] T053 [P] Test keyboard navigation flow through entire site (Tab order, focus indicators)
 - [ ] T054 Verify page load performance <1 second per plan.md performance goals
 - [ ] T055 Verify animation response time <200ms per SC-004
 - [ ] T056 Test site on multiple browsers (Chrome, Firefox, Safari, Edge)
 - [ ] T057 Test responsive behavior at 768px, 1024px, and 1200px+ widths
-- [ ] T058 [P] Create example second language file (e.g., Swedish) to validate localization structure
-- [ ] T059 [P] Add HTML comments documenting SVG sections for future maintainers
+- [x] T058 [P] Create example second language file (e.g., Swedish) to validate localization structure
+- [x] T059 [P] Add HTML comments documenting SVG sections for future maintainers
 - [ ] T060 Run through quickstart.md validation checklist completely
 - [ ] T061 Validate all Constitution principles are satisfied (especially L10N and child-friendly design)
 
