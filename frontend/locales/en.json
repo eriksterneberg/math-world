@@ -1,0 +1,32 @@
+{
+  "title": "Math Planet",
+  "worlds": {
+    "additionForest": "Addition Forest",
+    "subtractionMountain": "Subtraction Mountain",
+    "multiplicationDesert": "Multiplication Desert",
+    "divisionOcean": "Division Ocean"
+  },
+  "comingSoon": "Coming soon",
+  "additionForest": {
+    "pageTitle": "Addition Forest Map - Math Planet",
+    "title": "Addition Forest",
+    "subtitle": "Choose your path through the forest",
+    "spot1Label": "Spot 1 - Start here",
+    "spot2Label": "Spot 2 - Not yet available",
+    "spot3Label": "Spot 3 - Not yet available",
+    "spot4Label": "Spot 4 - Not yet available",
+    "spot5Label": "Spot 5 - Not yet available"
+  },
+  "navigation": {
+    "backToHome": "← Back to Math Planet"
+  },
+  "map": {
+    "title": "Addition Forest Map",
+    "spot": "Spot {number}"
+  },
+  "accessibility": {
+    "worldCardLabel": "Enter {world} to start learning",
+    "inactiveWorldLabel": "{world} - Coming soon",
+    "mapSpotLabel": "Learning spot {number} - Not yet available"
+  }
+}

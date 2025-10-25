@@ -1,0 +1,203 @@
+/* Math Planet - Main Styles */
+
+/* ========================================
+   CSS RESET & BASE STYLES
+   ======================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--color-text);
+  background: linear-gradient(135deg, #e8eaf6 0%, #f3e5f5 100%);
+}
+
+/* ========================================
+   GOOGLE FONTS
+   ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=Nunito:wght@400;600&display=swap');
+
+/* ========================================
+   CSS CUSTOM PROPERTIES
+   ======================================== */
+
+:root {
+  /* Typography */
+  --font-heading: 'Fredoka', sans-serif;
+  --font-body: 'Nunito', sans-serif;
+  --font-size-base: 16px;
+  --font-size-title: 3rem;
+  --font-size-card: 1.5rem;
+  --font-size-body: 1rem;
+  
+  /* Colors - Global */
+  --color-text: #333;
+  --color-text-light: #666;
+  --color-background: #f5f5f5;
+  --color-white: #ffffff;
+  
+  /* Colors - Addition Forest (Green) */
+  --forest-primary: #4CAF50;
+  --forest-secondary: #81C784;
+  --forest-accent: #2E7D32;
+  --forest-light: #C8E6C9;
+  
+  /* Colors - Subtraction Mountain (White/Gray) */
+  --mountain-primary: #EEEEEE;
+  --mountain-secondary: #BDBDBD;
+  --mountain-accent: #757575;
+  --mountain-light: #FAFAFA;
+  
+  /* Colors - Multiplication Desert (Yellow) */
+  --desert-primary: #FFD54F;
+  --desert-secondary: #FFE082;
+  --desert-accent: #F57F17;
+  --desert-light: #FFF9C4;
+  
+  /* Colors - Division Ocean (Blue) */
+  --ocean-primary: #42A5F5;
+  --ocean-secondary: #90CAF9;
+  --ocean-accent: #1565C0;
+  --ocean-light: #E3F2FD;
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  
+  /* Layout */
+  --card-min-width: 300px;
+  --card-gap: 2rem;
+  --touch-target-min: 44px;
+  --border-radius: 16px;
+  --border-radius-sm: 8px;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
+}
+
+/* ========================================
+   KEYBOARD FOCUS STYLES
+   ======================================== */
+
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 3px solid #4A90E2;
+  outline-offset: 4px;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Ensure focus is visible for keyboard navigation */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid #4A90E2;
+  outline-offset: 4px;
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+
+/* Tablet and up (768px+) */
+@media (min-width: 768px) {
+  :root {
+    --font-size-title: 3.5rem;
+    --spacing-lg: 2.5rem;
+    --spacing-xl: 4rem;
+  }
+}
+
+/* Desktop and up (1200px+) */
+@media (min-width: 1200px) {
+  :root {
+    --font-size-title: 4rem;
+    --card-gap: 2.5rem;
+  }
+  
+  body {
+    font-size: 18px;
+  }
+}
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+h1 {
+  font-size: var(--font-size-title);
+  margin-bottom: var(--spacing-lg);
+}
+
+p {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "title": "Matematikplaneten",
+  "worlds": {
+    "additionForest": "Additionsskogen",
+    "subtractionMountain": "Subtraktionsberget",
+    "multiplicationDesert": "Multiplikationsöknen",
+    "divisionOcean": "Divisionshavet"
+  },
+  "comingSoon": "Kommer snart",
+  "additionForest": {
+    "pageTitle": "Karta över Additionsskogen - Matematikplaneten",
+    "title": "Additionsskogen",
+    "subtitle": "Välj din väg genom skogen",
+    "spot1Label": "Plats 1 - Börja här",
+    "spot2Label": "Plats 2 - Inte tillgänglig än",
+    "spot3Label": "Plats 3 - Inte tillgänglig än",
+    "spot4Label": "Plats 4 - Inte tillgänglig än",
+    "spot5Label": "Plats 5 - Inte tillgänglig än"
+  },
+  "navigation": {
+    "backToHome": "← Tillbaka till Matematikplaneten"
+  },
+  "map": {
+    "title": "Karta över Additionsskogen",
+    "spot": "Plats {number}"
+  },
+  "accessibility": {
+    "worldCardLabel": "Gå in i {world} för att börja lära",
+    "inactiveWorldLabel": "{world} - Kommer snart",
+    "mapSpotLabel": "Inlärningsplats {number} - Inte tillgänglig än"
+  }
+}
