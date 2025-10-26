@@ -1,4 +1,4 @@
-/* Math Planet - Map Page Styles */
+/* Math Planet - Map Page Styles - Horizontal Linear Layout */
 
 /* ========================================
    MAP PAGE LAYOUT
@@ -34,7 +34,7 @@
 }
 
 /* ========================================
-   TREASURE MAP CONTAINER
+   MAP CONTAINER - HORIZONTAL LAYOUT
    ======================================== */
 
 .map-container {
@@ -44,14 +44,14 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-lg);
-  max-width: 1200px;
+  max-width: 1400px; /* Increased from 1200px for wider horizontal layout */
   margin: 0 auto;
   width: 100%;
 }
 
 .treasure-map {
   width: 100%;
-  max-width: 900px;
+  max-width: 1200px; /* Increased from 900px to accommodate horizontal 10-station layout */
   background: 
     linear-gradient(135deg, rgba(139, 110, 99, 0.1) 0%, rgba(93, 64, 55, 0.05) 100%),
     linear-gradient(to bottom, #FFF8E1 0%, #FFECB3 100%);
@@ -62,7 +62,8 @@
     inset 0 2px 4px rgba(255, 255, 255, 0.5);
   border: 4px solid #8D6E63;
   position: relative;
-  overflow: hidden;
+  overflow-x: auto; /* Allow horizontal scroll on small screens */
+  overflow-y: hidden;
 }
 
 /* Parchment texture overlay */
@@ -103,22 +104,23 @@
   border-radius: 16px;
   box-shadow: inset 0 0 30px rgba(139, 110, 99, 0.2);
   pointer-events: none;
-  z-index: 2;
+  z-index: 10; /* Increased from 2, but still allows clicks through */
 }
 
 /* ========================================
-   MAP SVG STYLING
+   MAP SVG STYLING - HORIZONTAL
    ======================================== */
 
 .map-svg {
   width: 100%;
+  min-width: 800px; /* Ensure SVG doesn't shrink too much on mobile */
   height: auto;
   position: relative;
-  z-index: 3;
+  z-index: 100; /* Much higher to ensure it's above all pseudo-elements */
 }
 
 .map-path {
-  stroke-dasharray: 10 5;
+  stroke-dasharray: 12 4;
   animation: dash 30s linear infinite;
 }
 
@@ -129,68 +131,87 @@
 }
 
 /* ========================================
-   MAP SPOTS STYLING
+   MAP STATIONS STYLING (10 stations)
    ======================================== */
 
 .map-spot {
-  cursor: default;
-  pointer-events: none; /* Prevent interaction with all spots */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  pointer-events: none; /* Default: not clickable */
 }
 
-/* Highlighted spot (Spot 1) */
-.map-spot.highlighted .spot-glow {
+/* Active station (clickable) */
+.map-spot.active {
+  pointer-events: auto; /* Override: make clickable */
+  cursor: pointer;
+}
+
+.map-spot.active .station-indicator {
+  stroke: #4CAF50;
+  animation: active-pulse 2s ease-in-out infinite;
+}
+
+.map-spot.active .station-glow {
   animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes active-pulse {
+  0%, 100% {
+    stroke-width: 3;
+    opacity: 1;
+  }
+  50% {
+    stroke-width: 4;
+    opacity: 0.8;
+  }
 }
 
 @keyframes glow-pulse {
   0%, 100% {
-    opacity: 0.4;
+    opacity: 0.1;
     transform: scale(1);
   }
   50% {
-    opacity: 0.7;
-    transform: scale(1.15);
+    opacity: 0.2;
+    transform: scale(1.1);
   }
 }
 
-.map-spot.highlighted .spot-outer {
-  filter: drop-shadow(0 0 8px rgba(255, 213, 79, 0.8));
-}
-
-.map-spot.highlighted .spot-inner {
-  animation: inner-pulse 2s ease-in-out infinite;
-}
-
-@keyframes inner-pulse {
-  0%, 100% {
-    fill: #66BB6A;
-  }
-  50% {
-    fill: #81C784;
-  }
-}
-
-/* Inactive spots (Spots 2-5) */
-.map-spot.inactive {
+/* Locked stations (not yet available) */
+.map-spot.locked {
+  pointer-events: none;
   opacity: 0.6;
 }
 
-.map-spot.inactive .spot-outer {
-  fill: #A5D6A7;
+.map-spot.locked text {
+  font-size: 16px;
 }
 
-.map-spot.inactive .spot-inner {
-  fill: #C8E6C9;
+/* Completed stations */
+.map-spot.completed {
+  pointer-events: auto;
+  opacity: 1;
 }
 
-.map-spot.inactive .spot-number {
-  fill: #999999;
+.map-spot.completed .station-indicator {
+  stroke: #FFD700;
+  stroke-width: 3;
 }
 
-/* Spot numbers styling */
-.spot-number {
-  font-family: var(--font-heading);
-  user-select: none;
+.map-spot.completed .station-glow {
+  fill: rgba(255, 215, 0, 0.15);
+}
+
+/* Hover effects for active stations */
+.map-spot.active:hover .station-indicator {
+  stroke: #66BB6A;
+  stroke-width: 4;
+}
+
+.map-spot.active:focus-visible {
+  outline: 3px solid #4A90E2;
+  outline-offset: 5px;
+  border-radius: 50%;
 }
 
 /* ========================================
@@ -228,9 +249,10 @@
 }
 
 /* ========================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN - HORIZONTAL SCROLL
    ======================================== */
 
+/* Mobile: horizontal scroll */
 @media (max-width: 767px) {
   .map-header h1 {
     font-size: 2rem;
@@ -239,24 +261,56 @@
   .treasure-map {
     padding: var(--spacing-md);
     border-width: 3px;
+    max-width: 100%;
+  }
+  
+  .map-svg {
+    min-width: 900px; /* Slightly wider to ensure all stations visible */
   }
   
   .map-container {
     padding: var(--spacing-md);
   }
+  
+  /* Scroll hint for mobile users */
+  .treasure-map::after {
+    box-shadow: 
+      inset 0 0 30px rgba(139, 110, 99, 0.2),
+      inset -20px 0 20px -10px rgba(139, 110, 99, 0.3);
+  }
 }
 
-@media (min-width: 768px) {
+/* Tablet: better fit */
+@media (min-width: 768px) and (max-width: 1199px) {
   .map-header {
     padding: var(--spacing-xl) var(--spacing-lg);
   }
   
+  .map-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .map-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .treasure-map {
+    max-width: 95%;
+  }
+}
+
+/* Desktop: full layout */
+@media (min-width: 1200px) {
   .map-header h1 {
     font-size: 3rem;
   }
   
   .map-subtitle {
     font-size: 1.25rem;
+  }
+  
+  .treasure-map {
+    max-width: 1200px;
   }
 }
 
@@ -276,14 +330,20 @@
   border-width: 0;
 }
 
+/* Keyboard navigation focus */
+.map-spot:focus-visible {
+  outline: 3px solid #4A90E2;
+  outline-offset: 5px;
+}
+
 /* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
   .map-path {
     animation: none;
   }
   
-  .map-spot.highlighted .spot-glow,
-  .map-spot.highlighted .spot-inner {
+  .map-spot.active .station-indicator,
+  .map-spot.active .station-glow {
     animation: none;
   }
 }

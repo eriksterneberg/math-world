@@ -69,6 +69,8 @@ function initializeExercise() {
  * @returns {void}
  */
 function handleCastleClick(event) {
+  console.log('🖱️ Castle clicked!', event.type, event.target);
+  
   // For keyboard events, only respond to Enter or Space
   if (event.type === 'keydown' && event.key !== 'Enter' && event.key !== ' ') {
     return;
@@ -359,7 +361,7 @@ function showFeedback(isCorrect, customMessage = null) {
  */
 function setupEventListeners() {
   // Get DOM element references
-  castleSpot = document.getElementById('castle-spot');
+  castleSpot = document.getElementById('station-1');
   interactionArea = document.getElementById('interaction-area');
   questionText = document.getElementById('question-text');
   answerInput = document.getElementById('answer-input');
@@ -367,7 +369,7 @@ function setupEventListeners() {
   feedbackMessage = document.getElementById('feedback-message');
   
   console.log('🎯 DOM Elements found:');
-  console.log('  Castle:', castleSpot ? '✅ Found' : '❌ NOT FOUND');
+  console.log('  Castle (Station 1):', castleSpot ? '✅ Found' : '❌ NOT FOUND');
   console.log('  Interaction Area:', interactionArea ? '✅ Found' : '❌ NOT FOUND');
   console.log('  Question Text:', questionText ? '✅ Found' : '❌ NOT FOUND');
   console.log('  Answer Input:', answerInput ? '✅ Found' : '❌ NOT FOUND');
@@ -378,9 +380,9 @@ function setupEventListeners() {
   if (castleSpot) {
     castleSpot.addEventListener('click', handleCastleClick);
     castleSpot.addEventListener('keydown', handleCastleClick);
-    console.log('🎮 Event listeners attached to castle');
+    console.log('🎮 Event listeners attached to castle (station-1)');
   } else {
-    console.error('❌ Cannot attach listeners: castle-spot element not found!');
+    console.error('❌ Cannot attach listeners: station-1 element not found!');
   }
   
   if (submitButton) {
